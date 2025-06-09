@@ -1,8 +1,8 @@
 "use client";
 
-import { inputTableHeaders } from "@/data";
-import { useState, useEffect } from "react";
-import { useDataContext } from "@/context/DataContext";
+import {inputTableHeaders} from "@/data";
+import {useState, useEffect} from "react";
+import {useDataContext} from "@/context/DataContext";
 import TextEditor from "@/components/TextEditor";
 
 const DataInput = () => {
@@ -86,9 +86,9 @@ const DataInput = () => {
                         </div>
                     </div>
                 ))}
-                <div className="flex flex-col">
-                    <label className="text-xl font-semibold">Notes</label>
-                    <TextEditor />
+                <div className="flex flex-col overflow-auto">
+                    <label className="text-xl font-semibold mb-2">Notes</label>
+                        <TextEditor/>
                 </div>
                 <button type="submit"
                         className="mx-52 px-6 py-2 text-2xl font-bold mt-10 border-2 rounded-md border-gray-200 hover:bg-gray-200 hover:text-slate-900">
