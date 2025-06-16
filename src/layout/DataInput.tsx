@@ -7,6 +7,7 @@ import TextEditor from "@/components/TextEditor";
 
 const DataInput = () => {
     const [date, setDate] = useState("");
+    const [notes, setNotes] = useState("");
     const {handleSubmit} = useDataContext();
 
     useEffect(() => {
@@ -88,7 +89,12 @@ const DataInput = () => {
                 ))}
                 <div className="flex flex-col overflow-auto">
                     <label className="text-xl font-semibold mb-2">Notes</label>
-                        <TextEditor/>
+                        <TextEditor value={notes} onChange={setNotes}/>
+                        <textarea name="notes"
+                                  value={notes}
+                                  readOnly
+                                  hidden
+                        />
                 </div>
                 <button type="submit"
                         className="mx-52 px-6 py-2 text-2xl font-bold mt-10 border-2 rounded-md border-gray-200 hover:bg-gray-200 hover:text-slate-900">
