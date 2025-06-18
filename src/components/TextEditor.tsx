@@ -1,7 +1,7 @@
 import {Color} from '@tiptap/extension-color';
 import ListItem from '@tiptap/extension-list-item';
 import TextStyle from '@tiptap/extension-text-style';
-import {useEditor, useCurrentEditor, EditorContent, EditorProvider} from '@tiptap/react';
+import {useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import MenuBar from './MenuBar'
 
@@ -24,7 +24,7 @@ export default function TextEditor({ value, onChange }: TextEditorProps) {
         ],
         content: value,
         onUpdate: ({ editor }) => {
-            onChange(editor.getHTML().replace(/<[^>]+>/g, ''))
+            onChange(editor.getHTML())
         },
     })
 
