@@ -87,14 +87,16 @@ const DataInput = () => {
                         </div>
                     </div>
                 ))}
-                <div className="flex flex-col overflow-auto">
+                <div className="flex flex-col">
                     <label className="text-xl font-semibold mb-2">Notes</label>
+                    <div style={{ width: '100%', maxWidth: '65rem' }}>
                         <TextEditor value={notes} onChange={setNotes}/>
-                        <textarea name="notes"
-                                  value={notes}
-                                  readOnly
-                                  hidden
-                        />
+                    </div>
+                    <textarea name="notes"
+                              value={notes}
+                              readOnly
+                              hidden
+                    />
                 </div>
                 <button type="submit"
                         className="mx-52 px-6 py-2 text-2xl font-bold mt-10 border-2 rounded-md border-gray-200 hover:bg-gray-200 hover:text-slate-900">

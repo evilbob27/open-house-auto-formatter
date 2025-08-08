@@ -1,11 +1,30 @@
 "use client"
 
-import { useDataContext} from "@/context/DataContext";
-import { useRef } from "react";
+import {useDataContext} from "@/context/DataContext";
+import {useRef} from "react";
 
 const OutputTable = () => {
-    const {address, date, submittedOfferNumber, submittedOfferNumber2, offerPendingNumber, offerPendingNumber2, responsePendingNumber, responsePendingNumber2, notInterestedNumber, notInterestedNumber2, notes} = useDataContext();
+    const {
+        address,
+        date,
+        submittedOfferNumber,
+        submittedOfferNumber2,
+        offerPendingNumber,
+        offerPendingNumber2,
+        responsePendingNumber,
+        responsePendingNumber2,
+        notInterestedNumber,
+        notInterestedNumber2,
+        notes
+    } = useDataContext();
     const tableRef = useRef<HTMLTableElement>(null);
+
+    const formatDate = (dateString: string) => {
+        if (!dateString) return '';
+        const dateObj = new Date(dateString + 'T00:00:00');
+        return dateObj.toLocaleDateString('en-US');
+    };
+
 
     const totalWithRealtor = Number(submittedOfferNumber) + Number(offerPendingNumber) + Number(responsePendingNumber) + Number(notInterestedNumber)
     const totalWithoutRealtor = Number(submittedOfferNumber2) + Number(offerPendingNumber2) + Number(responsePendingNumber2) + Number(notInterestedNumber2)
@@ -41,8 +60,8 @@ const OutputTable = () => {
             `;
 
             if (navigator.clipboard && navigator.clipboard.write) {
-                const htmlBlob = new Blob([tempDiv.innerHTML], { type: 'text/html' });
-                const textBlob = new Blob([tempDiv.innerText], { type: 'text/plain' });
+                const htmlBlob = new Blob([tempDiv.innerHTML], {type: 'text/html'});
+                const textBlob = new Blob([tempDiv.innerText], {type: 'text/plain'});
 
                 const clipboardItem = new ClipboardItem({
                     'text/html': htmlBlob,
@@ -108,61 +127,112 @@ const OutputTable = () => {
     };
 
     return (
-        <section className="flex flex-col justify-center items-center w-full mt-44">
-            <h2 className="text-2xl font-semibold">
-                {address}
-            </h2>
-            <h3 className="text-2xl font-semibold">
-                {date}
-            </h3>
-            <h3 className="text-xl font-semibold">Total Groups: {totalWithRealtor+totalWithoutRealtor} </h3>
-            <table
-                ref={tableRef}
-                className="border-2 border-black border-collapse"
-                style={{borderCollapse: 'collapse'}}
-            >
-                <thead>
-                <tr className="border-2 border-black *:border-2 [&>th:nth-child(2)]:text-sm [&>th:nth-child(2)]:font-normal [&>th:nth-child(3)]:text-sm [&>th:nth-child(3)]:font-normal">
-                    <th scope="col" className="font-bold w-40" style={{border: '2px solid black', padding: '8px'}}>Response</th>
-                    <th scope="col" className="w-32" style={{border: '2px solid black', padding: '8px'}}>w/ <span className="font-bold text-base">Realtor</span></th>
-                    <th scope="col" className="w-32" style={{border: '2px solid black', padding: '8px'}}>w/o <span className="font-bold text-base">Realtor</span></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr className="*:border-1 *:border-black">
-                    <th className="text-left" style={{border: '1px solid black', padding: '8px'}}>Offer Submitted</th>
-                    <td style={{border: '1px solid black', padding: '8px', textAlign: 'center'}}>{submittedOfferNumber}</td>
-                    <td style={{border: '1px solid black', padding: '8px', textAlign: 'center'}}>{submittedOfferNumber2}</td>
-                </tr>
-                <tr className="*:border-1 *:border-black">
-                    <th className="text-left" style={{border: '1px solid black', padding: '8px'}}>Offer Pending</th>
-                    <td style={{border: '1px solid black', padding: '8px', textAlign: 'center'}}>{offerPendingNumber}</td>
-                    <td style={{border: '1px solid black', padding: '8px', textAlign: 'center'}}>{offerPendingNumber2}</td>
-                </tr>
-                <tr className="*:border-1 *:border-black">
-                    <th className="text-left" style={{border: '1px solid black', padding: '8px'}}>Response Pending</th>
-                    <td style={{border: '1px solid black', padding: '8px', textAlign: 'center'}}>{responsePendingNumber}</td>
-                    <td style={{border: '1px solid black', padding: '8px', textAlign: 'center'}}>{responsePendingNumber2}</td>
-                </tr>
-                <tr className="*:border-1 *:border-black">
-                    <th className="text-left" style={{border: '1px solid black', padding: '8px'}}>Not Interested</th>
-                    <td style={{border: '1px solid black', padding: '8px', textAlign: 'center'}}>{notInterestedNumber}</td>
-                    <td style={{border: '1px solid black', padding: '8px', textAlign: 'center'}}>{notInterestedNumber2}</td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr className="*:border-2 *:border-black">
-                    <th style={{border: '2px solid black', padding: '8px'}}>Totals</th>
-                    <td style={{border: '2px solid black', padding: '8px', textAlign: 'center'}}>{totalWithRealtor}</td>
-                    <td style={{border: '2px solid black', padding: '8px', textAlign: 'center'}}>{totalWithoutRealtor}</td>
-                </tr>
-                </tfoot>
-            </table>
-            <div className="flex flex-col">
-                <h4 className="font-semibold">
-                    Notes:
-                </h4>
-                <div className="prose" dangerouslySetInnerHTML={{ __html: notes }} />
+        <section className="flex flex-col justify-center items-center mt-44">
+            <div className="items-start">
+                <div>
+                    <h2 className="text-2xl font-semibold">
+                        {address}
+                    </h2>
+                    <h3 className="text-2xl font-semibold">
+                        {formatDate(date)}
+                    </h3>
+                    <h3 className="text-xl font-semibold">Total Groups: {totalWithRealtor + totalWithoutRealtor} </h3>
+                </div>
+                <table
+                    ref={tableRef}
+                    className="border-2 border-black border-collapse"
+                    style={{border: '2px solid black', borderCollapse: 'collapse'}}
+                >
+                    <thead>
+                    <tr className="border-2 border-black *:border-2 [&>th:nth-child(2)]:text-sm [&>th:nth-child(2)]:font-normal [&>th:nth-child(3)]:text-sm [&>th:nth-child(3)]:font-normal">
+                        <th scope="col" className="font-bold w-48 whitespace-nowrap"
+                            style={{border: '2px solid black', padding: '8px'}}>Response
+                        </th>
+                        <th scope="col" className="w-32" style={{border: '2px solid black', padding: '8px'}}>w/ <span
+                            className="font-bold text-base">Realtor</span></th>
+                        <th scope="col" className="w-32" style={{border: '2px solid black', padding: '8px'}}>w/o <span
+                            className="font-bold text-base">Realtor</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr className="*:border-1 *:border-black">
+                        <th className="text-left" style={{border: '1px solid black', padding: '8px'}}>Offer Submitted
+                        </th>
+                        <td style={{
+                            border: '1px solid black',
+                            padding: '8px',
+                            textAlign: 'center'
+                        }}>{submittedOfferNumber}</td>
+                        <td style={{
+                            border: '1px solid black',
+                            padding: '8px',
+                            textAlign: 'center'
+                        }}>{submittedOfferNumber2}</td>
+                    </tr>
+                    <tr className="*:border-1 *:border-black">
+                        <th className="text-left" style={{border: '1px solid black', padding: '8px'}}>Offer Pending</th>
+                        <td style={{
+                            border: '1px solid black',
+                            padding: '8px',
+                            textAlign: 'center'
+                        }}>{offerPendingNumber}</td>
+                        <td style={{
+                            border: '1px solid black',
+                            padding: '8px',
+                            textAlign: 'center'
+                        }}>{offerPendingNumber2}</td>
+                    </tr>
+                    <tr className="*:border-1 *:border-black">
+                        <th className="text-left" style={{border: '1px solid black', padding: '8px'}}>Response Pending
+                        </th>
+                        <td style={{
+                            border: '1px solid black',
+                            padding: '8px',
+                            textAlign: 'center'
+                        }}>{responsePendingNumber}</td>
+                        <td style={{
+                            border: '1px solid black',
+                            padding: '8px',
+                            textAlign: 'center'
+                        }}>{responsePendingNumber2}</td>
+                    </tr>
+                    <tr className="*:border-1 *:border-black">
+                        <th className="text-left" style={{border: '1px solid black', padding: '8px'}}>Not Interested
+                        </th>
+                        <td style={{
+                            border: '1px solid black',
+                            padding: '8px',
+                            textAlign: 'center'
+                        }}>{notInterestedNumber}</td>
+                        <td style={{
+                            border: '1px solid black',
+                            padding: '8px',
+                            textAlign: 'center'
+                        }}>{notInterestedNumber2}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr className="*:border-2 *:border-black">
+                        <th style={{border: '2px solid black', padding: '8px'}}>Totals</th>
+                        <td style={{
+                            border: '2px solid black',
+                            padding: '8px',
+                            textAlign: 'center'
+                        }}>{totalWithRealtor}</td>
+                        <td style={{
+                            border: '2px solid black',
+                            padding: '8px',
+                            textAlign: 'center'
+                        }}>{totalWithoutRealtor}</td>
+                    </tr>
+                    </tfoot>
+                </table>
+                <div className="flex flex-col">
+                    <h4 className="font-semibold">
+                        Notes:
+                    </h4>
+                    <div className="prose" dangerouslySetInnerHTML={{__html: notes}}/>
+                </div>
             </div>
             <button
                 onClick={copyTableToClipboard}

@@ -23,15 +23,21 @@ export default function TextEditor({ value, onChange }: TextEditorProps) {
             }),
         ],
         content: value,
+        immediatelyRender: false,
         onUpdate: ({ editor }) => {
             onChange(editor.getHTML())
         },
     })
 
     return (
-        <div>
+        <div style={{ width: '100%', maxWidth: '100%' }}>
             {editor && <MenuBar editor={editor} />}
-            <EditorContent editor={editor} />
+            <div style={{ width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
+                <EditorContent
+                    editor={editor}
+                    style={{ width: '100%', maxWidth: '100%' }}
+                />
+            </div>
         </div>
     )
 }
