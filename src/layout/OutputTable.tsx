@@ -133,10 +133,12 @@ const OutputTable = () => {
                     <h2 className="text-2xl font-semibold">
                         {address}
                     </h2>
-                    <h3 className="text-2xl font-semibold">
+                    <h3 className="text-2xl font-semibold my-2">
                         {formatDate(date)}
                     </h3>
-                    <h3 className="text-xl font-semibold">Total Groups: {totalWithRealtor + totalWithoutRealtor} </h3>
+                    <h3 className="text-xl font-semibold mt-2 mb-4">
+                        Total Groups: {totalWithRealtor + totalWithoutRealtor}
+                    </h3>
                 </div>
                 <table
                     ref={tableRef}
@@ -228,7 +230,7 @@ const OutputTable = () => {
                     </tfoot>
                 </table>
                 <div className="flex flex-col">
-                    <h4 className="font-semibold">
+                    <h4 className="font-semibold mt-4">
                         Notes:
                     </h4>
                     <div className="prose" dangerouslySetInnerHTML={{__html: notes}}/>

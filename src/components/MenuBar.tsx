@@ -14,7 +14,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
     return (
         <div>
             <div
-                className="flex justify-center items-center gap-6 *:border *:border-gray-200 *:rounded-md *:px-2 *:hover:bg-gray-200 *:active:bg-gray-200">
+                className="flex justify-center items-center gap-6 *:border *:border-gray-200 *:rounded-md *:px-2 *:hover:bg-gray-200">
                 <button
                     type="button"
                     onClick={() => editor.chain().focus().toggleBold().run()}

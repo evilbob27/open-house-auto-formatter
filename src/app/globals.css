@@ -39,3 +39,7 @@ body {
   min-height: 200px;
   outline: none;
 }
+
+.is-active {
+  background-color: rgb(229 231 235) !important;
+}
