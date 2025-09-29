@@ -49,11 +49,6 @@ const Form = () => {
                     <input
                         {...register("email", {
                         required: "Email is required",
-                        validate: () => {
-                            if (!value)) {
-                                return
-                            }
-                        }
                         })}
                         type="text"
                         placeholder="Email"/>
