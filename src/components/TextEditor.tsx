@@ -27,6 +27,9 @@ export default function TextEditor({ value, onChange }: TextEditorProps) {
         onUpdate: ({ editor }) => {
             onChange(editor.getHTML())
         },
+        onCreate: ({ editor }) => {
+            editor.chain().focus().setColor('#000000').run()
+        },
     })
 
     return (

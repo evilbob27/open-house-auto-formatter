@@ -25,7 +25,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
                             .toggleBold()
                             .run()
                     }
-                    className={editor.isActive('strong') ? 'is-active' : ''}
+                    className={editor.isActive('bold') || editor.isActive('strong') ? 'is-active' : ''}
                 >
                     <span className="font-semibold">Bold</span>
                 </button>

@@ -33,6 +33,8 @@ const OutputTable = () => {
         if (!tableRef.current) return;
 
         try {
+            const formattedDate = formatDate(date);
+
             const tempDiv = document.createElement('div');
 
             const cleanTableHTML = tableRef.current ? tableRef.current.outerHTML.replace(
@@ -52,7 +54,7 @@ const OutputTable = () => {
             tempDiv.innerHTML = `
                 <div style="font-family: Arial, sans-serif; margin: 20px; font-weight: normal !important;">
                     <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">${address}</div>
-                    <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">${date}</div>
+                    <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">${formattedDate}</div>
                     <div style="font-size: 18px; font-weight: bold; margin-bottom: 20px;">Total Groups: ${totalWithRealtor + totalWithoutRealtor}</div>
                     ${cleanTableHTML}
                     ${notes ? `<div style="margin-top: 20px;"><div style="font-weight: bold;">Notes:</div><div style="font-weight: normal;">${notes}</div></div>` : ''}
