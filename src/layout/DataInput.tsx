@@ -89,7 +89,7 @@ const DataInput = () => {
                 ))}
                 <div className="flex flex-col">
                     <label className="text-xl font-semibold mb-2">Notes</label>
-                    <div style={{ width: '100%', maxWidth: '65rem' }}>
+                    <div style={{ width: '100%', maxWidth: '34rem' }}>
                         <TextEditor value={notes} onChange={setNotes}/>
                     </div>
                     <textarea name="notes"
