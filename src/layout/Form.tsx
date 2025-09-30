@@ -41,11 +41,11 @@ const Form = () => {
     return (
         <section className="flex flex-col justify-center items-center">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="border-2 border-gray-300 rounded-md mt-8 px-6 py-2">
+                <div className="mt-8 px-6 py-2">
                     <div className="flex flex-col my-2 items-start">
                         <label className="flex flex-col text-xl font-semibold">
                             Address
-                            <input className="text-md font-normal border-2 border-gray-200 rounded-md px-2 py-1"
+                            <input className="text-lg font-normal border-2 border-gray-200 rounded-md px-2 py-1"
                                    {...register("address", {
                                        required: "Address is required",
                                    })}
@@ -56,18 +56,17 @@ const Form = () => {
                         </label>
                         <label className="flex flex-col text-xl font-semibold mt-2">
                             Date
-                            <input
+                            <input className="text-lg px-2 py-1"
                                 {...register("date")}
                                 type="date"
                                 value={date}
-                                className="px-2 py-1"
                             />
                         </label>
                     </div>
-                    <div className="flex flex-col items-start my-2">
+                    <div className="flex flex-col border-2 border-gray-300 rounded-md items-start my-2 px-6 py-4">
                         <label className="flex flex-col text-xl font-semibold">
                             Group Name
-                            <input className="text-md font-normal border-2 border-gray-200 rounded-md px-2 py-1"
+                            <input className="text-lg font-normal border-2 border-gray-200 rounded-md px-2 py-1"
                                    {...register("groupName", {
                                        required: "Group Name is required",
                                    })}
@@ -80,7 +79,7 @@ const Form = () => {
                         <div className="flex gap-2 mt-2">
                             <label className="flex flex-col text-xl font-semibold">
                                 Email
-                                <input className="text-md font-normal border-2 border-gray-200 rounded-md px-2 py-1"
+                                <input className="text-lg font-normal border-2 border-gray-200 rounded-md px-2 py-1"
                                        {...register("email", {
                                            required: "Email is required",
                                            pattern: {
@@ -95,7 +94,7 @@ const Form = () => {
                             </label>
                             <label className="flex flex-col text-xl font-semibold">
                                 Phone Number
-                                <input className="text-md font-normal border-2 border-gray-200 rounded-md px-2 py-1"
+                                <input className="text-lg font-normal border-2 border-gray-200 rounded-md px-2 py-1"
                                        {...register("phoneNumber", {
                                            required: "Phone number is required",
                                        })}
@@ -109,7 +108,7 @@ const Form = () => {
                         <div className="flex flex-col text-xl font-semibold mt-2">
                             <span>Realtor</span>
                             <div className="flex gap-6 mt-1">
-                                <label className="text-md font-normal">
+                                <label className="text-lg font-normal">
                                     <input className="mx-2"
                                            {...register("isRealtor", {
                                                required: "Please select an option"
@@ -119,7 +118,7 @@ const Form = () => {
                                     />
                                     Yes
                                 </label>
-                                <label className="text-md font-normal">
+                                <label className="text-lg font-normal">
                                     <input className="mx-2"
                                            {...register("isRealtor", {
                                                required: "Please select an option"
@@ -135,7 +134,7 @@ const Form = () => {
                             {/* Conditional Realtor Input */}
                             {isRealtorValue === "yes" && (
                                 <input
-                                    className="text-md font-normal border-2 border-gray-200 rounded-md px-2 py-1 mt-2"
+                                    className="text-lg font-normal border-2 border-gray-200 rounded-md px-2 py-1 mt-2"
                                     {...register("realtor", {
                                         required: isRealtorValue === "yes" ? "Realtor information is required" : false,
                                     })}
