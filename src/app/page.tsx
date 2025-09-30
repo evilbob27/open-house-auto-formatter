@@ -12,22 +12,22 @@ export default function Home() {
     return (
         <DataProvider>
             <section>
-                <div className="border-b-2 border-gray-200 *:mx-1 *:px-6 *:py-2 *:border-t-2 *:border-r-2 *:border-l-2 *:rounded-md *:border-gray-200 *:hover:bg-gray-200 *:active:bg-gray-300">
+                <div className="mt-2 border-b-2 border-gray-200 *:mx-1 *:px-6 *:py-2 *:border-t-2 *:border-r-2 *:border-l-2 *:border-gray-200 *:hover:bg-gray-200 *:active:bg-gray-300 [&>button]:rounded-t-md">
                     <button
                         onClick={() => setActiveTab("Form")}
-                        className={`${activeTab === "Form" ? "bg-gray-300" : ""}`}
+                        className={`font-semibold text-lg ${activeTab === "Form" ? "bg-gray-300" : ""}`}
                     >
                     Form
                     </button>
                     <button
                         onClick={() => setActiveTab("DataInput")}
-                        className={`${activeTab === "DataInput" ? "bg-gray-300" : ""}`}
+                        className={`font-semibold text-lg ${activeTab === "DataInput" ? "bg-gray-300" : ""}`}
                     >
                     Ledger
                     </button>
                     <button
                         onClick={() => setActiveTab("OutputTable")}
-                        className={`${activeTab === "OutputTable" ? "bg-gray-300" : ""}`}
+                        className={`font-semibold text-lg ${activeTab === "OutputTable" ? "bg-gray-300" : ""}`}
                     >
                     Table
                     </button>
