@@ -129,8 +129,8 @@ const OutputTable = () => {
     };
 
     return (
-        <section className="flex flex-col justify-center items-center mt-44">
-            <div className="items-start">
+        <section className="flex flex-col justify-center items-center">
+            <div className="items-start mt-22">
                 <div>
                     <h2 className="text-2xl font-semibold">
                         {address}
