@@ -238,8 +238,8 @@ const Form = () => {
                         ref={dialogRef}
                         className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-lg shadow-xl backdrop:bg-black backdrop:opacity-50 border-2 border-gray-300"
                     >
-                        <p className="text-2xl font-bold">Are you sure you want to delete this entry?</p>
-                        <div className="flex gap-8 items-center justify-center mt-2">
+                        <p className="text-xl font-bold">Are you sure you want to delete this entry?</p>
+                        <div className="flex gap-8 items-center justify-center my-1">
                             <button
                                 type="button"
                                 onClick={confirmDelete}
