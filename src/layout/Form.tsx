@@ -1,7 +1,7 @@
 "use client"
 
 import {SubmitHandler, useForm, useFieldArray} from "react-hook-form";
-import {useEffect} from "react";
+import {useEffect, useRef, useState} from "react";
 
 type FieldsetData = {
     groupName: string;
@@ -39,7 +39,7 @@ const Form = () => {
         }
     });
 
-    const { fields, append, remove } = useFieldArray({
+    const {fields, append, remove} = useFieldArray({
         control,
         name: "fieldsets"
     });
@@ -68,11 +68,31 @@ const Form = () => {
         });
     };
 
+    const dialogRef = useRef<HTMLDialogElement>(null);
+    const [deleteIndex, setDeleteIndex] = useState<number | null>(null);
+
+    const showModal = (index: number) => {
+        setDeleteIndex(index);
+        dialogRef.current?.showModal();
+    };
+
+    const hideModal = () => {
+        dialogRef.current?.close();
+        setDeleteIndex(null);
+    };
+
+    const confirmDelete = () => {
+        if (deleteIndex !== null) {
+            remove(deleteIndex);
+        }
+        hideModal();
+    };
+
     return (
         <section className="flex flex-col justify-center items-center">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="mt-20 px-6 py-2">
-                    <div className="flex flex-col my-2 items-start">
+                <div className="mt-18 px-6 py-2">
+                    <div className="flex flex-col my-4 items-start">
                         <label className="flex flex-col text-2xl font-semibold">
                             Address
                             <input className="text-lg font-normal border-2 border-gray-200 rounded-md px-1"
@@ -82,11 +102,11 @@ const Form = () => {
                                    type="text"
                                    placeholder="Address"
                             />
-                            {errors.address && <div className="text-red-500 text-sm mt-1">{errors.address.message}</div>}
+                            {errors.address && <div className="error-text">{errors.address.message}</div>}
                         </label>
                         <label className="flex flex-col text-2xl font-semibold mt-2">
                             Date
-                            <input className="text-lg px-1 border-2 border-gray-200 rounded-md"
+                            <input className="text-xl px-1"
                                    {...register("date")}
                                    type="date"
                             />
@@ -98,16 +118,16 @@ const Form = () => {
                             const isRealtorValue = watch(`fieldsets.${index}.isRealtor`);
 
                             return (
-                                <div key={field.id} className="flex flex-col border-2 border-gray-300 rounded-md items-start my-2 px-6 py-4 relative">
-                                    {fields.length > 1 && (
-                                        <button
-                                            type="button"
-                                            onClick={() => remove(index)}
-                                            className="absolute top-2 right-2 text-red-500 hover:text-red-700 text-xl font-bold"
-                                        >
-                                            ✕
-                                        </button>
-                                    )}
+                                <div key={field.id}
+                                     className="flex flex-col border-2 border-gray-300 rounded-md items-start my-2 px-6 py-4 relative">
+                                    <button
+                                        type="button"
+                                        onClick={() => showModal(index)}
+                                        hidden={fields.length <= 1}
+                                        className="absolute top-2 right-2 text-red-500 hover:text-red-700 font-bold"
+                                    >
+                                        x
+                                    </button>
 
                                     <label className="flex flex-col text-xl font-semibold">
                                         Group Name
@@ -119,7 +139,7 @@ const Form = () => {
                                                placeholder="Group Name"
                                         />
                                         {errors.fieldsets?.[index]?.groupName && (
-                                            <div className="text-red-500 text-sm mt-1">
+                                            <div className="error-text">
                                                 {errors.fieldsets[index]?.groupName?.message}
                                             </div>
                                         )}
@@ -128,34 +148,36 @@ const Form = () => {
                                     <div className="flex gap-2 mt-2 w-full">
                                         <label className="flex flex-col text-xl font-semibold flex-1">
                                             Email
-                                            <input className="text-lg font-normal border-2 border-gray-200 rounded-md px-1"
-                                                   {...register(`fieldsets.${index}.email`, {
-                                                       required: "Email is required",
-                                                       pattern: {
-                                                           value: validationPattern.email,
-                                                           message: "Invalid email format"
-                                                       }
-                                                   })}
-                                                   type="email"
-                                                   placeholder="Email"
+                                            <input
+                                                className="text-lg font-normal border-2 border-gray-200 rounded-md px-1"
+                                                {...register(`fieldsets.${index}.email`, {
+                                                    required: "Email is required",
+                                                    pattern: {
+                                                        value: validationPattern.email,
+                                                        message: "Invalid email format"
+                                                    }
+                                                })}
+                                                type="email"
+                                                placeholder="Email"
                                             />
                                             {errors.fieldsets?.[index]?.email && (
-                                                <div className="text-red-500 text-sm mt-1">
+                                                <div className="error-text">
                                                     {errors.fieldsets[index]?.email?.message}
                                                 </div>
                                             )}
                                         </label>
                                         <label className="flex flex-col text-xl font-semibold flex-1">
                                             Phone Number
-                                            <input className="text-lg font-normal border-2 border-gray-200 rounded-md px-1"
-                                                   {...register(`fieldsets.${index}.phoneNumber`, {
-                                                       required: "Phone number is required",
-                                                   })}
-                                                   type="tel"
-                                                   placeholder="Phone Number"
+                                            <input
+                                                className="text-lg font-normal border-2 border-gray-200 rounded-md px-1"
+                                                {...register(`fieldsets.${index}.phoneNumber`, {
+                                                    required: "Phone number is required",
+                                                })}
+                                                type="tel"
+                                                placeholder="Phone Number"
                                             />
                                             {errors.fieldsets?.[index]?.phoneNumber && (
-                                                <div className="text-red-500 text-sm mt-1">
+                                                <div className="error-text">
                                                     {errors.fieldsets[index]?.phoneNumber?.message}
                                                 </div>
                                             )}
@@ -187,7 +209,7 @@ const Form = () => {
                                             </label>
                                         </div>
                                         {errors.fieldsets?.[index]?.isRealtor && (
-                                            <div className="text-red-500 text-sm mt-1">
+                                            <div className="error-text">
                                                 {errors.fieldsets[index]?.isRealtor?.message}
                                             </div>
                                         )}
@@ -202,7 +224,7 @@ const Form = () => {
                                             />
                                         )}
                                         {errors.fieldsets?.[index]?.realtor && (
-                                            <div className="text-red-500 text-sm mt-1">
+                                            <div className="error-text">
                                                 {errors.fieldsets[index]?.realtor?.message}
                                             </div>
                                         )}
@@ -211,6 +233,29 @@ const Form = () => {
                             );
                         })}
                     </div>
+
+                    <dialog
+                        ref={dialogRef}
+                        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-lg shadow-xl backdrop:bg-black backdrop:opacity-50 border-2 border-gray-300"
+                    >
+                        <p className="text-2xl font-bold">Are you sure you want to delete this entry?</p>
+                        <div className="flex gap-8 items-center justify-center mt-2">
+                            <button
+                                type="button"
+                                onClick={confirmDelete}
+                                className="text-2xl font-semibold mt-10 border-2 rounded-md border-gray-200 hover:bg-gray-200 active:bg-gray-300 active:border-gray-300 py-1 w-20"
+                            >
+                                Yes
+                            </button>
+                            <button
+                                type="button"
+                                onClick={hideModal}
+                                className="text-2xl font-semibold mt-10 border-2 rounded-md border-gray-200 hover:bg-gray-200 active:bg-gray-300 active:border-gray-300 py-1 w-20"
+                            >
+                                No
+                            </button>
+                        </div>
+                    </dialog>
 
                     <div className="flex justify-center mt-4">
                         <button
