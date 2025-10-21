@@ -45,7 +45,7 @@ const DataInput = () => {
 
     return (
         <section className="flex flex-col items-center justify-center w-full">
-            <form id="inputForm" className="mt-20" onSubmit={handleSubmit}>
+            <form id="inputForm" className="my-8" onSubmit={handleSubmit}>
                 <div className="my-4 flex flex-col">
                     <label className="text-xl font-semibold">Address</label>
                     <input type="text"

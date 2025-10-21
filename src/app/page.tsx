@@ -1,6 +1,7 @@
 "use client"
 
 import Form from "@/layout/Form";
+import Ledger from "@/layout/Ledger";
 import DataInput from '@/layout/DataInput';
 import OutputTable from '@/layout/OutputTable';
 import {DataProvider} from "@/context/DataContext";
@@ -20,10 +21,16 @@ export default function Home() {
                     Form
                     </button>
                     <button
+                        onClick={() => setActiveTab("Ledger")}
+                        className={`font-semibold text-lg ${activeTab === "Ledger" ? "bg-gray-300" : ""}`}
+                    >
+                        Ledger
+                    </button>
+                    <button
                         onClick={() => setActiveTab("DataInput")}
                         className={`font-semibold text-lg ${activeTab === "DataInput" ? "bg-gray-300" : ""}`}
                     >
-                    Ledger
+                    Depreciated Form
                     </button>
                     <button
                         onClick={() => setActiveTab("OutputTable")}
@@ -34,6 +41,9 @@ export default function Home() {
                 </div>
                 <div style={{display: activeTab === "Form" ? "block" : "none"}}>
                     <Form/>
+                </div>
+                <div style={{display: activeTab === "Ledger" ? "block" : "none"}}>
+                    <Ledger/>
                 </div>
                 <div style={{display: activeTab === "DataInput" ? "block" : "none"}}>
                     <DataInput/>
