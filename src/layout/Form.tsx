@@ -243,14 +243,14 @@ const Form = () => {
                             <button
                                 type="button"
                                 onClick={confirmDelete}
-                                className="text-2xl font-semibold mt-10 border-2 rounded-md border-gray-200 hover:bg-gray-200 active:bg-gray-300 active:border-gray-300 py-1 w-20"
+                                className="text-2xl font-semibold mt-10 py-1 w-20 button button:hover button:active"
                             >
                                 Yes
                             </button>
                             <button
                                 type="button"
                                 onClick={hideModal}
-                                className="text-2xl font-semibold mt-10 border-2 rounded-md border-gray-200 hover:bg-gray-200 active:bg-gray-300 active:border-gray-300 py-1 w-20"
+                                className="text-2xl font-semibold mt-10 py-1 w-20 button button:hover button:active"
                             >
                                 No
                             </button>
@@ -261,7 +261,7 @@ const Form = () => {
                         <button
                             type="button"
                             onClick={addFieldset}
-                            className="border-2 border-gray-200 rounded-md text-3xl font-bold px-[.75rem] hover:bg-gray-200 active:bg-gray-300 active:border-gray-300"
+                            className="text-3xl font-bold px-[.75rem] button button:hover button:active"
                         >
                             +
                         </button>
@@ -270,7 +270,7 @@ const Form = () => {
 
                 <div className="flex justify-center">
                     <button
-                        className="px-6 py-2 text-2xl font-bold mt-10 border-2 rounded-md border-gray-200 hover:bg-gray-200 active:bg-gray-300 active:border-gray-300"
+                        className="px-6 py-2 text-2xl font-bold mt-10 button button:hover button:active"
                         type="submit">
                         Submit
                     </button>

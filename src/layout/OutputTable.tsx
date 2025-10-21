@@ -241,7 +241,7 @@ const OutputTable = () => {
             <button
                 onClick={copyTableToClipboard}
                 type="button"
-                className="mb-20 px-6 py-2 text-2xl font-bold mt-10 border-2 rounded-md border-gray-200 hover:bg-gray-200 hover:text-slate-900"
+                className="mb-20 px-6 py-2 text-2xl font-bold mt-10 button button:hover button:active"
             >
                 Copy to Clipboard
             </button>
